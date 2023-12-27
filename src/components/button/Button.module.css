@@ -1,0 +1,22 @@
+.button {
+  background-color: var(--primary-color);
+  border-radius: 28.5px;
+  color: var(--white-color);
+  text-align: center;
+  font-family: var(--font);
+}
+
+.small {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.big {
+  min-width: 248px;
+  padding: 19px 8px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}

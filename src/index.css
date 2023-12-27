@@ -1,0 +1,64 @@
+:root {
+  --font: 'Open Sans, sans-serif';
+  --primary-color: #fe724c;
+  --text-color: #000;
+  ---text-secondary-color: #5b5b5e;
+  --white-color: #fff;
+  --separator-color: #d4d6e0;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+body {
+  font-family: 'Open Sans, sans-serif';
+}
+* {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+input,
+button,
+textarea {
+  font-family: 'Open Sans, sans-serif';
+  font-size: inherit;
+}
+button {
+  cursor: pointer;
+  color: inherit;
+  background-color: inherit;
+}
+a {
+  color: inherit;
+}
+a:link,
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+ul li {
+  list-style: none;
+}
+img {
+  vertical-align: top;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}

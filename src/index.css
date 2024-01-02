@@ -1,5 +1,4 @@
 :root {
-  --font: 'Open Sans, sans-serif';
   --primary-color: #fe724c;
   --text-color: #000;
   ---text-secondary-color: #5b5b5e;
@@ -13,7 +12,8 @@ body {
   width: 100%;
 }
 body {
-  font-family: 'Open Sans, sans-serif';
+  font-family: 'Open Sans';
+  font-size: 14px;
 }
 * {
   padding: 0px;

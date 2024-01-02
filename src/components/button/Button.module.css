@@ -6,6 +6,11 @@
   font-family: var(--font);
 }
 
+.logout-btn {
+  display: flex;
+  align-items: center;
+}
+
 .small {
   padding: 10px 20px;
   font-size: 16px;

@@ -1,0 +1,14 @@
+.head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-wrapper {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 17px;
+  top: 17px;
+}

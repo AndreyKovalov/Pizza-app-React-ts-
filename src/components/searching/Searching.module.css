@@ -1,0 +1,9 @@
+.input-search {
+  min-width: 256px;
+  border-radius: 10px;
+  border: 1px solid #efefef;
+  background: #fcfcfd;
+  padding: 16px 30px 16px 44px;
+  color: #9aa0b4;
+  font-weight: 400;
+}

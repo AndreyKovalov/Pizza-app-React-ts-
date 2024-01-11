@@ -14,6 +14,7 @@ body {
 body {
   font-family: 'Open Sans';
   font-size: 14px;
+  color: var(---text-secondary-color);
 }
 * {
   padding: 0px;

@@ -3,7 +3,7 @@ import { ProductCardProps } from './ProductCard.props'
 import style from './ProductCard.module.css'
 function ProductCard({ ...props }: ProductCardProps) {
   return (
-    <Link to="/">
+    <Link to={`/product/${props.id}`}>
       <div className={style['card']}>
         <div className={style['header']}>
           <img

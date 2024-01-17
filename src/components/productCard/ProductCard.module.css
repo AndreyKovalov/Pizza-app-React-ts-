@@ -1,5 +1,5 @@
 .card {
-  width: 323px;
+  flex: 0 0 323px;
   background-color: var(--white-color);
   border-radius: 18px;
   box-shadow: 18.214px 18.214px 36.429px 0px rgba(211, 209, 216, 0.25);
@@ -43,20 +43,19 @@
 .price {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 3px;
   background-color: var(--white-color);
-  padding: 4px 10px;
+  padding: 4px 9px;
   border-radius: 25px;
+  font-size: 20px;
 }
 
 .price__value {
   color: var(--text-color);
-  font-size: 20px;
 }
 
 .price__currency {
   color: var(--primary-color);
-  font-size: 21px;
 }
 
 .rating {

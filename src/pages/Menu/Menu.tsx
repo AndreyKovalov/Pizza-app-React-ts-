@@ -1,17 +1,20 @@
 import axios from 'axios'
 import { Headling } from '../../components/Headling/Headling'
-import ProductCard from '../../components/productCard/ProductCard'
-import Searching from '../../components/searching/Searching'
+import Searching from '../../components/Searching/Searching'
 import style from './Menu.module.css'
 import { PREFIX } from '../../helpers/API'
 import { useEffect, useState } from 'react'
 import { Product } from '../../interfaces/product.interfaces'
+import { MenuList } from './MenuList/MenuList'
 function Menu() {
   const [products, setProducts] = useState<Product[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   async function getMenu() {
     try {
+      setIsLoading(true)
       const { data } = await axios.get<Product[]>(`${PREFIX}/products`)
       setProducts(data)
+      setIsLoading(false)
     } catch (error) {
       console.error(error)
       return
@@ -35,19 +38,7 @@ function Menu() {
         </div>
       </div>
       <div className={style['card-wrapper']}>
-        {products.map((p) => {
-          return (
-            <ProductCard
-              key={p.id}
-              id={p.id}
-              title={p.name}
-              price={p.price}
-              image={p.image}
-              rating={p.rating}
-              description={p.ingredients.join(', ')}
-            />
-          )
-        })}
+        <MenuList products={products} />
       </div>
     </>
   )

@@ -1,6 +1,6 @@
 import styles from './Button.module.css'
 import cn from 'classnames'
-import { ButtonProps } from './Button.props'
+import { ButtonProps } from './Button.props.ts'
 
 function Button({
   children,

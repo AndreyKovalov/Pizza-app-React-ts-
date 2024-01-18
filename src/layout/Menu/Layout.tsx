@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import style from './Layout.module.css'
-import Button from '../../components/button/Button'
+import Button from '../../components/Button/Button'
 import cn from 'classnames'
 function Layout() {
   return (

@@ -6,12 +6,12 @@ import { PREFIX } from '../../helpers/API'
 import { useEffect, useState } from 'react'
 import { Product } from '../../interfaces/product.interfaces'
 import { MenuList } from './MenuList/MenuList'
+import MyLoader from '../../components/MyLoader/MyLoader'
 function Menu() {
   const [products, setProducts] = useState<Product[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   async function getMenu() {
     try {
-      setIsLoading(true)
       const { data } = await axios.get<Product[]>(`${PREFIX}/products`)
       setProducts(data)
       setIsLoading(false)
@@ -38,7 +38,11 @@ function Menu() {
         </div>
       </div>
       <div className={style['card-wrapper']}>
-        <MenuList products={products} />
+        {isLoading ? (
+          <MyLoader amountOfElem={8} />
+        ) : (
+          <MenuList products={products} />
+        )}
       </div>
     </>
   )

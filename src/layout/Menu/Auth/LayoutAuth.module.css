@@ -1,0 +1,21 @@
+.layout {
+  display: flex;
+  margin: 0 auto;
+  max-width: 1055px;
+  height: 100vh;
+}
+
+.logo {
+  display: flex;
+  flex: 0 0 50%;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid rgb(212, 214, 224);
+}
+
+.content {
+  display: flex;
+  flex: 0 0 50%;
+  justify-content: center;
+  align-items: center;
+}

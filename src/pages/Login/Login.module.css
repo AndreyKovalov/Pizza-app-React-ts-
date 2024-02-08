@@ -1,0 +1,35 @@
+.form {
+  min-width: 324px;
+  margin-bottom: 74px;
+}
+
+.input-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 30px;
+  color: var(---text-secondary-color);
+  font-size: 17px;
+}
+
+.title-login {
+  margin-bottom: 30px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.btn-login {
+  margin-bottom: 30px;
+}
+
+.text {
+  margin-bottom: 4px;
+}
+
+.link {
+  color: var(--primary-color);
+}

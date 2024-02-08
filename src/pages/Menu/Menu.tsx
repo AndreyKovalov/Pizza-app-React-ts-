@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { Headling } from '../../components/Headling/Headling'
 import Searching from '../../components/Searching/Searching'
 import style from './Menu.module.css'
@@ -10,13 +10,18 @@ import MyLoader from '../../components/MyLoader/MyLoader'
 function Menu() {
   const [products, setProducts] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | undefined>()
   async function getMenu() {
     try {
       const { data } = await axios.get<Product[]>(`${PREFIX}/products`)
       setProducts(data)
       setIsLoading(false)
-    } catch (error) {
+    } catch (e) {
       console.error(error)
+      if (e instanceof AxiosError) {
+        setError(e.message)
+      }
+      setIsLoading(false)
       return
     }
   }
@@ -38,6 +43,7 @@ function Menu() {
         </div>
       </div>
       <div className={style['card-wrapper']}>
+        {error && <>{error}</>}
         {isLoading ? (
           <MyLoader amountOfElem={8} />
         ) : (

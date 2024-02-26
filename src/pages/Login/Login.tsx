@@ -3,13 +3,41 @@ import Button from '../../components/Button/Button'
 import { Headling } from '../../components/Headling/Headling'
 import Input from '../../components/Input/Input'
 import style from './Login.module.css'
+import { FormEvent, useState } from 'react'
+import { LoginForm } from './LoginForm.interfaces'
+import axios, { AxiosError } from 'axios'
+import { PREFIX } from '../../helpers/API'
 function Login() {
+  const [err, setErr] = useState<string | undefined>()
+
+  async function onSubmitHandle(e: FormEvent) {
+    e.preventDefault()
+    const target = e.target as typeof e.target & LoginForm
+    const { email, password } = target
+    await sendLogin(email.value, password.value)
+  }
+
+  async function sendLogin(email: string, password: string) {
+    try {
+      const { data } = await axios.post(`${PREFIX}/auth/login`, {
+        email,
+        password,
+      })
+      console.log(data)
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setErr(error.response?.data.message)
+      }
+    }
+  }
+
   return (
     <div className={style['login']}>
       <Headling className={style['title-login']}>Login</Headling>
-      <form className={style['form']}>
+      <form className={style['form']} onSubmit={onSubmitHandle}>
+        {err && <>{err}</>}
         <div className={style['input-wrap']}>
-          <label htmlFor="email">Your email</label>
+          <label htmlFor="email">Your Email</label>
           <Input
             type="email"
             id="email"
@@ -30,11 +58,11 @@ function Login() {
             placeholder="Password"
           />
         </div>
-      </form>
-      <div className={style['footer']}>
         <Button className={style['btn-login']} appearence="big">
           Login
         </Button>
+      </form>
+      <div className={style['footer']}>
         <div className={style['text']}>Don't have an account yet?</div>
         <Link className={style['link']} to={'/auth/register'}>
           Register Now

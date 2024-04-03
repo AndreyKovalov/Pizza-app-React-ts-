@@ -1,6 +1,6 @@
 export function saveState<T>(state: T, key: string) {
-  const stingState = JSON.stringify(state)
-  localStorage.setItem(key, stingState)
+  const stringState = JSON.stringify(state)
+  localStorage.setItem(key, stringState)
 }
 
 export function loadState<T>(key: string): T | undefined {

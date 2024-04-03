@@ -1,8 +1,19 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import style from './Layout.module.css'
 import Button from '../../components/Button/Button'
 import cn from 'classnames'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../../store/store'
+import { userActions } from '../../store/user.slice'
+
 function Layout() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch<AppDispatch>()
+
+  function logout() {
+    dispatch(userActions.logOut())
+    navigate('/auth/login')
+  }
   return (
     <div className={style['layout']}>
       <div className={style['sidebar']}>
@@ -43,7 +54,7 @@ function Layout() {
             Cart
           </NavLink>
         </div>
-        <Button className={style['logout-btn']}>
+        <Button className={style['logout-btn']} onClick={logout}>
           <img
             src="\sidebar\button\button-logout.svg "
             alt="button-loguot-icon"

@@ -3,46 +3,52 @@ import Button from '../../components/Button/Button'
 import { Headling } from '../../components/Headling/Headling'
 import Input from '../../components/Input/Input'
 import style from './Login.module.css'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect } from 'react'
 import { LoginForm } from './LoginForm.interfaces'
-import axios, { AxiosError } from 'axios'
-import { PREFIX } from '../../helpers/API'
-import { useDispatch } from 'react-redux'
-import { userActions } from '../../store/user.slice'
-import { AppDispatch } from '../../store/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { login, userActions } from '../../store/user.slice'
+import { AppDispatch, RootState } from '../../store/store'
 
 function Login() {
-  const [err, setErr] = useState<string | undefined>()
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
+  const { jwt, errMassage } = useSelector((state: RootState) => state.user)
+
+  useEffect(() => {
+    if (jwt) {
+      navigate('/')
+    }
+  }, [jwt, navigate])
 
   async function onSubmitHandle(e: FormEvent) {
     e.preventDefault()
+    dispatch(userActions.resetErrMassage())
     const target = e.target as typeof e.target & LoginForm
     const { email, password } = target
     await sendLogin(email.value, password.value)
   }
 
   async function sendLogin(email: string, password: string) {
-    try {
-      const { data } = await axios.post(`${PREFIX}/auth/login`, {
-        email,
-        password,
-      })
-      dispatch(userActions.addJwt(data.access_token))
-      navigate('/')
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        setErr(error.response?.data.message)
-      }
-    }
+    dispatch(login({ email, password }))
+    //  try {
+    //    const { data } = await axios.post<LoginResponse>(`${PREFIX}/auth/login`, {
+    //      email,
+    //      password,
+    //    })
+    //    dispatch(userActions.addJwt(data.access_token))
+    //    navigate('/')
+    //  } catch (error) {
+    //    if (error instanceof AxiosError) {
+    //      setErr(error.response?.data.message)
+    //    }
+    //  }
   }
 
   return (
     <div className={style['login']}>
       <Headling className={style['title-login']}>Login</Headling>
       <form className={style['form']} onSubmit={onSubmitHandle}>
-        {err && <>{err}</>}
+        {errMassage && <>{errMassage}</>}
         <div className={style['input-wrap']}>
           <label htmlFor="email">Your Email</label>
           <Input

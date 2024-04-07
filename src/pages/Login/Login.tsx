@@ -20,34 +20,18 @@ function Login() {
     }
   }, [jwt, navigate])
 
-  async function onSubmitHandle(e: FormEvent) {
+  async function submit(e: FormEvent) {
     e.preventDefault()
     dispatch(userActions.resetErrMassage())
     const target = e.target as typeof e.target & LoginForm
     const { email, password } = target
-    await sendLogin(email.value, password.value)
-  }
-
-  async function sendLogin(email: string, password: string) {
-    dispatch(login({ email, password }))
-    //  try {
-    //    const { data } = await axios.post<LoginResponse>(`${PREFIX}/auth/login`, {
-    //      email,
-    //      password,
-    //    })
-    //    dispatch(userActions.addJwt(data.access_token))
-    //    navigate('/')
-    //  } catch (error) {
-    //    if (error instanceof AxiosError) {
-    //      setErr(error.response?.data.message)
-    //    }
-    //  }
+    await dispatch(login({ email: email.value, password: password.value }))
   }
 
   return (
     <div className={style['login']}>
       <Headling className={style['title-login']}>Login</Headling>
-      <form className={style['form']} onSubmit={onSubmitHandle}>
+      <form className={style['form']} onSubmit={submit}>
         {errMassage && <>{errMassage}</>}
         <div className={style['input-wrap']}>
           <label htmlFor="email">Your Email</label>

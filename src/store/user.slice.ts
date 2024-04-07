@@ -3,6 +3,8 @@ import { loadState } from './storage'
 import axios, { AxiosError } from 'axios'
 import { PREFIX } from '../helpers/API'
 import { LoginResponse } from '../interfaces/auth.interfaces'
+import { Profile } from '../interfaces/user.profile.interfaces'
+import { RootState } from './store'
 
 export const JWT_PERSISTENT_STATE = 'userData'
 
@@ -13,11 +15,13 @@ export interface UserPersistentState {
 export interface UserState {
   jwt: string | null
   errMassage?: string
+  profile?: Profile
 }
 
 const initialState: UserState = {
   jwt: loadState<UserPersistentState>(JWT_PERSISTENT_STATE)?.jwt ?? null,
   errMassage: undefined,
+  profile: undefined,
 }
 
 export const login = createAsyncThunk(
@@ -34,6 +38,40 @@ export const login = createAsyncThunk(
         throw new Error(error.response?.data.message)
       }
     }
+  }
+)
+
+export const register = createAsyncThunk(
+  'user/register',
+  async (params: { email: string; password: string; name: string }) => {
+    try {
+      const { data } = await axios.post<LoginResponse>(
+        `${PREFIX}/auth/register`,
+        {
+          email: params.email,
+          password: params.password,
+          name: params.name,
+        }
+      )
+      return data
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw new Error(error.response?.data.message)
+      }
+    }
+  }
+)
+
+export const getProfile = createAsyncThunk<Profile, void, { state: RootState }>(
+  'user/profile',
+  async (_, thunkApi) => {
+    const jwt = thunkApi.getState().user.jwt
+    const { data } = await axios.get<Profile>(`${PREFIX}/user/profile`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    })
+    return data
   }
 )
 
@@ -55,8 +93,20 @@ export const userSlice = createSlice({
       }
       state.jwt = action.payload.access_token
     })
+    builder.addCase(register.fulfilled, (state, action) => {
+      if (!action.payload) {
+        return
+      }
+      state.jwt = action.payload.access_token
+    })
+    builder.addCase(register.rejected, (state, action) => {
+      state.errMassage = action.error.message
+    })
     builder.addCase(login.rejected, (state, action) => {
       state.errMassage = action.error.message
+    })
+    builder.addCase(getProfile.fulfilled, (state, action) => {
+      state.profile = action.payload
     })
   },
 })

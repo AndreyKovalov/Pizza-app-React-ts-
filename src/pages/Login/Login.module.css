@@ -1,4 +1,6 @@
 .form {
+  display: flex;
+  flex-direction: column;
   min-width: 324px;
   margin-bottom: 74px;
 }
@@ -24,6 +26,7 @@
 
 .btn-login {
   margin-bottom: 30px;
+  align-self: center;
 }
 
 .text {

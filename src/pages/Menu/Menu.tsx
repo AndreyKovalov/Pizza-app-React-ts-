@@ -4,16 +4,16 @@ import Searching from '../../components/Searching/Searching'
 import style from './Menu.module.css'
 import { PREFIX } from '../../helpers/API'
 import { useEffect, useState } from 'react'
-import { Product } from '../../interfaces/product.interfaces'
+import { IProduct } from '../../interfaces/product.interfaces'
 import { MenuList } from './MenuList/MenuList'
 import MyLoader from '../../components/MyLoader/MyLoader'
 function Menu() {
-  const [products, setProducts] = useState<Product[]>([])
+  const [products, setProducts] = useState<IProduct[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | undefined>()
   async function getMenu() {
     try {
-      const { data } = await axios.get<Product[]>(`${PREFIX}/products`)
+      const { data } = await axios.get<IProduct[]>(`${PREFIX}/products`)
       setProducts(data)
       setIsLoading(false)
     } catch (e) {

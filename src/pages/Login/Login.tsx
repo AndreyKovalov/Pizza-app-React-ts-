@@ -25,6 +25,7 @@ function Login() {
     dispatch(userActions.resetErrMassage())
     const target = e.target as typeof e.target & LoginForm
     const { email, password } = target
+    console.log({ email: email.value, password: password.value })
     await dispatch(login({ email: email.value, password: password.value }))
   }
 

@@ -11,6 +11,7 @@ function Layout() {
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
   const profile = useSelector((state: RootState) => state.user.profile)
+  const cartItems = useSelector((state: RootState) => state.cart.items)
 
   useEffect(() => {
     dispatch(getProfile())
@@ -59,6 +60,7 @@ function Layout() {
             />
             Cart
           </NavLink>
+          {cartItems.reduce((acc, item) => (acc += item.count), 0)}
         </div>
         <Button className={style['logout-btn']} onClick={logout}>
           <img

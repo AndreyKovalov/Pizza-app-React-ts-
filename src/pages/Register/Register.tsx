@@ -8,6 +8,7 @@ import { RegisterForm } from './RegisterForm.interfaces'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../store/store'
 import { register, userActions } from '../../store/user.slice'
+
 function Register() {
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()

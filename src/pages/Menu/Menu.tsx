@@ -11,9 +11,18 @@ function Menu() {
   const [products, setProducts] = useState<IProduct[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | undefined>()
-  async function getMenu() {
+  const [filter, setFilter] = useState<string | undefined>()
+
+  const onChangeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilter(e.target.value)
+  }
+  async function getMenu(name?: string) {
     try {
-      const { data } = await axios.get<IProduct[]>(`${PREFIX}/products`)
+      const { data } = await axios.get<IProduct[]>(`${PREFIX}/products`, {
+        params: {
+          name,
+        },
+      })
       setProducts(data)
       setIsLoading(false)
     } catch (e) {
@@ -27,14 +36,17 @@ function Menu() {
   }
 
   useEffect(() => {
-    getMenu()
-  }, [])
+    getMenu(filter)
+  }, [filter])
   return (
     <>
       <div className={style['head']}>
         <Headling>Menu</Headling>
         <div className={style['search-wrapper']}>
-          <Searching placeholder="Enter a dish or composition" />
+          <Searching
+            onChange={onChangeFilter}
+            placeholder="Enter a dish or composition"
+          />
           <img
             className={style['search-icon']}
             src="/content-menu/search-icon.svg"

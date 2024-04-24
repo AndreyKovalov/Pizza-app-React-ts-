@@ -59,8 +59,10 @@ function Layout() {
               alt="cart-icon"
             />
             Cart
+            <span className={style['menu__count']}>
+              {cartItems.reduce((acc, item) => (acc += item.count), 0)}
+            </span>
           </NavLink>
-          {cartItems.reduce((acc, item) => (acc += item.count), 0)}
         </div>
         <Button className={style['logout-btn']} onClick={logout}>
           <img

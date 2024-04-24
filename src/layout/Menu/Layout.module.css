@@ -66,6 +66,16 @@
   width: 23px;
 }
 
+.menu__count {
+  color: #3c457c;
+  font-size: 14px;
+  background-color: rgb(180, 180, 133);
+  transform: translateY(-2px);
+  padding: 1px 5px;
+  border-radius: 50%;
+  text-align: center;
+}
+
 .logout-btn {
   display: flex;
   align-items: center;

@@ -61,6 +61,7 @@ function Menu() {
         ) : (
           <MenuList products={products} />
         )}
+        {products.length === 0 && <div>Nothing found</div>}
       </div>
     </>
   )

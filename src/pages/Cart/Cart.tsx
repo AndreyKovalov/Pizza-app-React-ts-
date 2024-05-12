@@ -1,5 +1,6 @@
 import { Headling } from '../../components/Headling/Headling'
-import CartItem from '../../components/Cart-item/CartItem'
+import style from './Cart.module.css'
+import CartItem from '../../components/CartItem/CartItem'
 import axios from 'axios'
 import { PREFIX } from '../../helpers/API'
 import { IProduct } from '../../interfaces/product.interfaces'
@@ -26,13 +27,13 @@ function Cart() {
 
   return (
     <>
-      <Headling>Cart</Headling>
+      <Headling className={style['cart-title']}>Cart</Headling>
       {items.map((i) => {
         const product = cartItems.find((p) => p.id === i.id)
         if (!product) {
           return
         }
-        return <CartItem count={product.id} key={i.id} {...product} />
+        return <CartItem count={i.count} key={i.id} {...product} />
       })}
     </>
   )
